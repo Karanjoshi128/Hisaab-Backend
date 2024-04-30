@@ -27,24 +27,29 @@ const registerUser = asyncHandler(async (req, res) => {
 const logInUser = asyncHandler(async (req, res) => {
   const { username, email, password } = req.body;
 
-  if(!email || !password) {
+  if (!email || !password) {
     res.status(400);
     throw new Error("Please fill all the fields1");
   }
 
   const user = await User.findOne({
     $or: [{ username }, { email }],
-  }).select("-password")
+  })
 
   if (!user) {
     res.status(400);
     throw new Error("Invalid credentials");
   }
+  const validPassword = await user.isPasswordCorrect(password);
 
-  return res.status(200).json(user);
+  if (!validPassword) {
+    res.status(400);
+    throw new Error("Invalid credentials");
+  }
+  const loggedInUser = await User.findById(user._id).select("-password")
 
 
-
+  return res.status(200).json(loggedInUser);
 });
 
 export { registerUser, logInUser };
