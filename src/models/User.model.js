@@ -16,6 +16,14 @@ const userSchema = new mongoose.Schema(
     password: {
       type: String,
       required: true,
+    },
+    transcation : {
+        type : mongoose.Schema.Types.ObjectId,
+        ref : "Transaction"
+    },
+    balance : {
+        type : Number,
+        default : 0
     }
   },
   {
