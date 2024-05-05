@@ -9,22 +9,26 @@ const registerUser = asyncHandler(async (req, res) => {
     throw new Error("Please fill all the fields");
   }
 
-  const userExistsWithUserName = await User.findOne({username});
+  const userExistsWithUserName = await User.findOne({ username });
 
-  if(userExistsWithUserName){
+  if (userExistsWithUserName) {
     res.status(400);
     throw new Error("username is already taken");
   }
 
-  const userExistsWithEmail = await User.findOne({email});
+  const userExistsWithEmail = await User.findOne({ email });
 
-  if(userExistsWithEmail){
+  if (userExistsWithEmail) {
     res.status(400);
     throw new Error("user already exists");
   }
 
+  const countOfDocuments = await User.countDocuments();
 
-
+  if (countOfDocuments > 2) {
+    res.status(400);
+    throw new Error("No more users can be added");
+  }
 
   const newUser = await User.create({
     username,
@@ -41,6 +45,19 @@ const registerUser = asyncHandler(async (req, res) => {
   return res.status(201).json(user);
 });
 
+const getUsers = asyncHandler(async (req, res) => {
+  const paramValue = req.query.paramName;
+  const users = await User.find({ username: paramValue }).select("-password");
+  if (!users) {
+    res.status(400);
+    throw new Error("No users found");
+  }
+
+  return res
+  .status(200)
+  .json(users);
+});
+
 const logInUser = asyncHandler(async (req, res) => {
   const { username, email, password } = req.body;
 
@@ -51,7 +68,7 @@ const logInUser = asyncHandler(async (req, res) => {
 
   const user = await User.findOne({
     $or: [{ username }, { email }],
-  })
+  });
 
   if (!user) {
     res.status(400);
@@ -63,10 +80,9 @@ const logInUser = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error("Invalid credentials");
   }
-  const loggedInUser = await User.findById(user._id).select("-password")
-
+  const loggedInUser = await User.findById(user._id).select("-password");
 
   return res.status(200).json(loggedInUser);
 });
 
-export { registerUser, logInUser };
+export { registerUser, logInUser , getUsers };

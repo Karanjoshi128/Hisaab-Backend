@@ -21,7 +21,11 @@ const userSchema = new mongoose.Schema(
         type : mongoose.Schema.Types.ObjectId,
         ref : "Transaction"
     },
-    balance : {
+    balance1 : {
+        type : Number,
+        default : 0
+    },
+    balance2 : {
         type : Number,
         default : 0
     }

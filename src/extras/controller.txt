@@ -1,0 +1,220 @@
+// const createTransactionAndAddBalance1 = asyncHandler(async (req, res) => {
+//   const { sender, receiver, amount } = req.body;
+
+//   if (!sender || !receiver || !amount) {
+//     res.status(400);
+//     throw new Error("Something Went wrong");
+//   }
+
+//   const senderId = await User.findOne({ username: sender });
+//   const receiverId = await User.findOne({ username: receiver });
+
+//   if (!senderId || !receiverId) {
+//     res.status(400);
+//     throw new Error("Invalid transaction data , Invalid userId's");
+//   }
+
+//   const transaction = await Transaction.create({
+//     sender: senderId._id,
+//     receiver: receiverId._id,
+//     amount,
+//   });
+
+//   if (!transaction) {
+//     res.status(400);
+//     throw new Error("Invalid transaction data");
+//   }
+
+//   await User.findByIdAndUpdate(
+//     senderId._id,
+//     {
+//       $set: {
+//         balance: senderId.balance1 + amount,
+//       },
+//     },
+//     { new: true }
+//   );
+
+//   return res
+//     .status(201)
+//     .json({ transaction, senderName: sender, receiverName: receiver });
+// });
+
+
+
+
+
+
+
+
+
+
+
+const createTransactionAndAddBalance2 = asyncHandler(async (req, res) => {
+  const { sender, receiver, amount } = req.body;
+
+  if (!sender || !receiver || !amount) {
+    res.status(400);
+    throw new Error("Something Went wrong");
+  }
+
+  const senderId = await User.findOne({ username: sender });
+  const receiverId = await User.findOne({ username: receiver });
+
+  if (!senderId || !receiverId) {
+    res.status(400);
+    throw new Error("Invalid transaction data , Invalid userId's");
+  }
+
+  const transaction = await Transaction.create({
+    sender: senderId._id,
+    receiver: receiverId._id,
+    amount,
+  });
+
+  if (!transaction) {
+    res.status(400);
+    throw new Error("Invalid transaction data");
+  }
+
+  await User.findByIdAndUpdate(
+    senderId._id,
+    {
+      $set: {
+        balance: senderId.balance2 + amount,
+      },
+    },
+    { new: true }
+  );
+
+  return res
+    .status(201)
+    .json({ transaction, senderName: sender, receiverName: receiver });
+});
+
+const createTransactionAndSubtractBalance1 = asyncHandler(async (req, res) => {
+  const { sender, receiver, amount } = req.body;
+
+  if (!sender || !receiver || !amount) {
+    res.status(400);
+    throw new Error("Something Went wrong");
+  }
+
+  const senderId = await User.findOne({ username: sender });
+  const receiverId = await User.findOne({ username: receiver });
+
+  if (!senderId || !receiverId) {
+    res.status(400);
+    throw new Error("Invalid transaction data , Invalid userId's");
+  }
+
+  const transaction = await Transaction.create({
+    sender: senderId._id,
+    receiver: receiverId._id,
+    amount,
+  });
+
+  if (!transaction) {
+    res.status(400);
+    throw new Error("Invalid transaction data");
+  }
+
+  await User.findByIdAndUpdate(
+    senderId._id,
+    {
+      $set: {
+        balance: senderId.balance1 - amount,
+      },
+    },
+    { new: true }
+  );
+
+  return res
+    .status(201)
+    .json({ transaction, senderName: sender, receiverName: receiver });
+});
+const createTransactionAndSubtractBalance2 = asyncHandler(async (req, res) => {
+  const { sender, receiver, amount } = req.body;
+
+  if (!sender || !receiver || !amount) {
+    res.status(400);
+    throw new Error("Something Went wrong");
+  }
+
+  const senderId = await User.findOne({ username: sender });
+  const receiverId = await User.findOne({ username: receiver });
+
+  if (!senderId || !receiverId) {
+    res.status(400);
+    throw new Error("Invalid transaction data , Invalid userId's");
+  }
+
+  const transaction = await Transaction.create({
+    sender: senderId._id,
+    receiver: receiverId._id,
+    amount,
+  });
+
+  if (!transaction) {
+    res.status(400);
+    throw new Error("Invalid transaction data");
+  }
+
+  await User.findByIdAndUpdate(
+    senderId._id,
+    {
+      $set: {
+        balance: senderId.balance2 - amount,
+      },
+    },
+    { new: true }
+  );
+
+  return res
+    .status(201)
+    .json({ transaction, senderName: sender, receiverName: receiver });
+});
+
+
+
+
+
+
+
+
+
+
+const createTransaction2 = asyncHandler(async (req, res) => {
+  const { sender, receiver, amount } = req.body;
+
+  if (!sender || !receiver || !amount) {
+    res.status(400);
+    throw new Error("Something Went wrong");
+  }
+
+  const transaction = await Transaction.create({
+    sender,
+    receiver,
+    amount,
+  });
+
+  if (!transaction) {
+    res.status(400);
+    throw new Error("Invalid transaction data");
+  }
+
+  const senderName = await User.findById(sender);
+  const receiverName = await User.findById(receiver);
+
+  if (!senderName || !receiverName) {
+    res.status(400);
+    throw new Error("Invalid transaction data");
+  }
+  console.log(senderName.username, receiverName.username);
+
+  return res.status(201).json({
+    transaction,
+    senderName: senderName.username,
+    receiverName: receiverName.username,
+  });
+});
