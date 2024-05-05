@@ -218,3 +218,7 @@ const createTransaction2 = asyncHandler(async (req, res) => {
     receiverName: receiverName.username,
   });
 });
+
+
+
+// "dev": "nodemon src/index.js",
