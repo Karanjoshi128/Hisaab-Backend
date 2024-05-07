@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
-import { DB_NAME } from "../../constants";
 
 
 export const dbConnect = async () => {
     try {
+        const DB_NAME = "Hisaab"
         const connectionInstance = await mongoose.connect(
             `${process.env.MONGODB_URI}/${DB_NAME}`
         );
