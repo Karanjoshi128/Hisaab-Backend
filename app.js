@@ -8,7 +8,7 @@ app.use(cors())
 
 
 
-import userRouter from "./routes/user.routes.js"
+import userRouter from "./src/routes/user.routes.js"
 app.use("/api/users/v1" , userRouter); 
 
 export {app};
