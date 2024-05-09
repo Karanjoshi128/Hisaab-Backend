@@ -17,10 +17,10 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    transcation : {
+    transcation : [{
         type : mongoose.Schema.Types.ObjectId,
         ref : "Transaction"
-    },
+    }],
     balance1 : {
         type : Number,
         default : 0

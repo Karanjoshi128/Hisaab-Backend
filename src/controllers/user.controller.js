@@ -52,10 +52,16 @@ const getUsers = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error("No users found");
   }
+  const otherUsersData = await User.find({ username: { $ne: paramValue } }).select("-password");
+  if (!otherUsersData) {
+    res.status(400);
+    throw new Error("No users found");
+  }
+
 
   return res
   .status(200)
-  .json(users);
+  .json({users , otherUsersData});
 });
 
 const logInUser = asyncHandler(async (req, res) => {
