@@ -42,7 +42,7 @@ const registerUser = asyncHandler(async (req, res) => {
   }
 
   const user = await User.findById(newUser._id).select("-password");
-  return res.status(201).json(user);
+  return res.status(201);
 });
 
 const getUsers = asyncHandler(async (req, res) => {
@@ -52,16 +52,15 @@ const getUsers = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error("No users found");
   }
-  const otherUsersData = await User.find({ username: { $ne: paramValue } }).select("-password");
+  const otherUsersData = await User.find({
+    username: { $ne: paramValue },
+  }).select("-password");
   if (!otherUsersData) {
     res.status(400);
     throw new Error("No users found");
   }
 
-
-  return res
-  .status(200)
-  .json({users , otherUsersData});
+  return res.status(200).json({ users, otherUsersData });
 });
 
 const logInUser = asyncHandler(async (req, res) => {
@@ -91,4 +90,35 @@ const logInUser = asyncHandler(async (req, res) => {
   return res.status(200).json(loggedInUser);
 });
 
-export { registerUser, logInUser , getUsers };
+// const setBalanceTarget = asyncHandler(async (req, res) => {
+//   const paramUsername = req.query.paramUsername;
+//   const targetUserOne = req.query.targetUserOne;
+//   const targetUserTwo = req.query.targetUserTwo;
+
+//   const user = await User.findOne({ username: paramUsername }).select(
+//     "-password"
+//   );
+
+//   if (!user) {
+//     res.status(400);
+//     throw new Error("Invalid user");
+//   }
+
+//   if (
+//     user.balance1TargetUser != targetUserOne ||
+//     user.balance2TargetUser != targetUserTwo
+//   ) {
+//     const updatedUser = await User.findByIdAndUpdate(
+//       user._id,
+//       {
+//         $set: {
+//           balance1TargetUser: targetUserOne,
+//           balance2TargetUser: targetUserTwo,
+//         },
+//       },
+//       { new: true }
+//     );
+//   }
+// });
+
+export { registerUser, logInUser, getUsers};

@@ -25,10 +25,18 @@ const userSchema = new mongoose.Schema(
         type : Number,
         default : 0
     },
+    balance1TargetUser : {
+      type : String,
+      default : ""
+    },
     balance2 : {
         type : Number,
         default : 0
-    }
+    },
+    balance2TargetUser : {
+      type : String,
+      default : ""
+    },
   },
   {
     timestamps: true,
