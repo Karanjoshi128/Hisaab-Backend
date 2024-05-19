@@ -28,13 +28,16 @@ const createTransactionAndAddBalance1 = asyncHandler(async (req, res) => {
   // user.balance1TargetUser = targetUserOne;
   // user.balance2TargetUser = targetUserTwo;
   // user.save();
+  console.log(user.balance1TargetUser);
+  console.log(user.balance2TargetUser);
+  console.log(targetUserInDb.balance1TargetUser);
+  console.log(targetUserInDb.balance2TargetUser);
 
   if (
     user.balance1TargetUser === targetUserOne &&
     user.balance2TargetUser === targetUserTwo
   ) {
     if (targetUserInDb.balance1TargetUser === paramUsername) {
-      console.log(targetUserInDb.balance1TargetUser);
       const updatedTargetUser1 = await User.findByIdAndUpdate(
         targetUserInDb._id,
         {
@@ -77,7 +80,7 @@ const createTransactionAndAddBalance1 = asyncHandler(async (req, res) => {
         },
       },
       { new: true }
-    );
+    ).select("-password");
 
     if (!updatedUser) {
       res.status(400);
