@@ -25,9 +25,9 @@ const createTransactionAndAddBalance1 = asyncHandler(async (req, res) => {
     throw new Error("No target users found");
   }
 
-  user.balance1TargetUser = targetUserOne;
-  user.balance2TargetUser = targetUserTwo;
-  user.save();
+  // user.balance1TargetUser = targetUserOne;
+  // user.balance2TargetUser = targetUserTwo;
+  // user.save();
 
   if (
     user.balance1TargetUser === targetUserOne &&
@@ -114,9 +114,9 @@ const createTransactionAndAddBalance2 = asyncHandler(async (req, res) => {
     throw new Error("No target users found");
   }
 
-  user.balance1TargetUser = targetUserOne;
-  user.balance2TargetUser = targetUserTwo;
-  user.save();
+  // user.balance1TargetUser = targetUserOne;
+  // user.balance2TargetUser = targetUserTwo;
+  // user.save();
 
 
   if (
@@ -202,9 +202,9 @@ const createTransactionAndSubtractBalance1 = asyncHandler(async (req, res) => {
     throw new Error("No target users found");
   }
 
-  user.balance1TargetUser = targetUserOne;
-  user.balance2TargetUser = targetUserTwo;
-  user.save();
+  // user.balance1TargetUser = targetUserOne;
+  // user.balance2TargetUser = targetUserTwo;
+  // user.save();
 
   if (
     user.balance1TargetUser === targetUserOne &&
@@ -290,9 +290,9 @@ const createTransactionAndSubtractBalance2 = asyncHandler(async (req, res) => {
     throw new Error("No target users found");
   }
 
-  user.balance1TargetUser = targetUserOne;
-  user.balance2TargetUser = targetUserTwo;
-  user.save();
+  // user.balance1TargetUser = targetUserOne;
+  // user.balance2TargetUser = targetUserTwo;
+  // user.save();
 
   if (
     user.balance1TargetUser === targetUserOne &&
