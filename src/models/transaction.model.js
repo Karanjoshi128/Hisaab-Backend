@@ -3,19 +3,24 @@ import mongoose from "mongoose";
 const transactionSchema = new mongoose.Schema(
   {
     sender: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-      required: true,
+      type: String,
+      required: true
     },
     receiver: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-      required: true,
+      type: String,
+      required: true
+    },
+    reason: {
+      type: String,
     },
     amount: {
       type: Number,
       required: true,
       default: 0,
+    },
+    transactionDate: {
+      type: Date,
+      default: Date.now, // Custom field for the transaction date
     },
   },
   {

@@ -42,7 +42,7 @@ const registerUser = asyncHandler(async (req, res) => {
   }
 
   const user = await User.findById(newUser._id).select("-password");
-  return res.status(201);
+  return res.status(201).json(user);
 });
 
 const getUsers = asyncHandler(async (req, res) => {
@@ -90,35 +90,7 @@ const logInUser = asyncHandler(async (req, res) => {
   return res.status(200).json(loggedInUser);
 });
 
-// const setBalanceTarget = asyncHandler(async (req, res) => {
-//   const paramUsername = req.query.paramUsername;
-//   const targetUserOne = req.query.targetUserOne;
-//   const targetUserTwo = req.query.targetUserTwo;
 
-//   const user = await User.findOne({ username: paramUsername }).select(
-//     "-password"
-//   );
 
-//   if (!user) {
-//     res.status(400);
-//     throw new Error("Invalid user");
-//   }
-
-//   if (
-//     user.balance1TargetUser != targetUserOne ||
-//     user.balance2TargetUser != targetUserTwo
-//   ) {
-//     const updatedUser = await User.findByIdAndUpdate(
-//       user._id,
-//       {
-//         $set: {
-//           balance1TargetUser: targetUserOne,
-//           balance2TargetUser: targetUserTwo,
-//         },
-//       },
-//       { new: true }
-//     );
-//   }
-// });
 
 export { registerUser, logInUser, getUsers};

@@ -3,6 +3,15 @@ import { User } from "../models/User.model.js";
 
 import asyncHandler from "express-async-handler";
 
+const getTransactions = asyncHandler(async (req, res) => {
+  const transactions = await Transaction.find({}).sort({ createdAt: -1 });
+  if (transactions.length === 0) {
+    res.status(400);
+    throw new Error("No transactions found");
+  }
+  return res.status(200).json(transactions);
+});
+
 const createTransactionAndAddBalance1 = asyncHandler(async (req, res) => {
   const paramAmount = req.query.paramAmount;
   const paramUsername = req.query.paramUsername;
@@ -25,13 +34,13 @@ const createTransactionAndAddBalance1 = asyncHandler(async (req, res) => {
     throw new Error("No target users found");
   }
 
-  // user.balance1TargetUser = targetUserOne;
-  // user.balance2TargetUser = targetUserTwo;
-  // user.save();
-  console.log(user.balance1TargetUser);
-  console.log(user.balance2TargetUser);
-  console.log(targetUserInDb.balance1TargetUser);
-  console.log(targetUserInDb.balance2TargetUser);
+  user.balance1TargetUser = targetUserOne;
+  user.balance2TargetUser = targetUserTwo;
+  user.save();
+  // console.log(user.balance1TargetUser);
+  // console.log(user.balance2TargetUser);
+  // console.log(targetUserInDb.balance1TargetUser);
+  // console.log(targetUserInDb.balance2TargetUser);
 
   if (
     user.balance1TargetUser === targetUserOne &&
@@ -54,7 +63,7 @@ const createTransactionAndAddBalance1 = asyncHandler(async (req, res) => {
         throw new Error("Invalid transaction data");
       }
     } else if (targetUserInDb.balance2TargetUser === paramUsername) {
-      console.log(targetUserInDb.balance2TargetUser);
+      // console.log(targetUserInDb.balance2TargetUser);
       const updatedTargetUser2 = await User.findByIdAndUpdate(
         targetUserInDb._id,
         {
@@ -87,13 +96,8 @@ const createTransactionAndAddBalance1 = asyncHandler(async (req, res) => {
       throw new Error("Invalid transaction data");
     }
     return res.status(201).json(updatedUser);
-  } 
-  
-
+  }
 });
-
-
-
 
 const createTransactionAndAddBalance2 = asyncHandler(async (req, res) => {
   const paramAmount = req.query.paramAmount;
@@ -117,17 +121,16 @@ const createTransactionAndAddBalance2 = asyncHandler(async (req, res) => {
     throw new Error("No target users found");
   }
 
-  // user.balance1TargetUser = targetUserOne;
-  // user.balance2TargetUser = targetUserTwo;
-  // user.save();
-
+  user.balance1TargetUser = targetUserOne;
+  user.balance2TargetUser = targetUserTwo;
+  user.save();
 
   if (
     user.balance1TargetUser === targetUserOne &&
     user.balance2TargetUser === targetUserTwo
   ) {
     if (targetUserInDb.balance1TargetUser === paramUsername) {
-      console.log(targetUserInDb.balance1TargetUser);
+      // console.log(targetUserInDb.balance1TargetUser);
       const updatedTargetUser1 = await User.findByIdAndUpdate(
         targetUserInDb._id,
         {
@@ -144,7 +147,7 @@ const createTransactionAndAddBalance2 = asyncHandler(async (req, res) => {
         throw new Error("Invalid transaction data");
       }
     } else if (targetUserInDb.balance2TargetUser === paramUsername) {
-      console.log(targetUserInDb.balance2TargetUser);
+      // console.log(targetUserInDb.balance2TargetUser);
       const updatedTargetUser2 = await User.findByIdAndUpdate(
         targetUserInDb._id,
         {
@@ -177,11 +180,8 @@ const createTransactionAndAddBalance2 = asyncHandler(async (req, res) => {
       throw new Error("Invalid transaction data");
     }
     return res.status(201).json(updatedUser);
-  } 
+  }
 });
-
-
-
 
 const createTransactionAndSubtractBalance1 = asyncHandler(async (req, res) => {
   const paramAmount = req.query.paramAmount;
@@ -205,16 +205,16 @@ const createTransactionAndSubtractBalance1 = asyncHandler(async (req, res) => {
     throw new Error("No target users found");
   }
 
-  // user.balance1TargetUser = targetUserOne;
-  // user.balance2TargetUser = targetUserTwo;
-  // user.save();
+  user.balance1TargetUser = targetUserOne;
+  user.balance2TargetUser = targetUserTwo;
+  user.save();
 
   if (
     user.balance1TargetUser === targetUserOne &&
     user.balance2TargetUser === targetUserTwo
   ) {
     if (targetUserInDb.balance1TargetUser === paramUsername) {
-      console.log(targetUserInDb.balance1TargetUser);
+      // console.log(targetUserInDb.balance1TargetUser);
       const updatedTargetUser1 = await User.findByIdAndUpdate(
         targetUserInDb._id,
         {
@@ -231,7 +231,7 @@ const createTransactionAndSubtractBalance1 = asyncHandler(async (req, res) => {
         throw new Error("Invalid transaction data");
       }
     } else if (targetUserInDb.balance2TargetUser === paramUsername) {
-      console.log(targetUserInDb.balance2TargetUser);
+      // console.log(targetUserInDb.balance2TargetUser);
       const updatedTargetUser2 = await User.findByIdAndUpdate(
         targetUserInDb._id,
         {
@@ -264,12 +264,8 @@ const createTransactionAndSubtractBalance1 = asyncHandler(async (req, res) => {
       throw new Error("Invalid transaction data");
     }
     return res.status(201).json(updatedUser);
-  } 
+  }
 });
-
-
-
-
 
 const createTransactionAndSubtractBalance2 = asyncHandler(async (req, res) => {
   const paramAmount = req.query.paramAmount;
@@ -293,16 +289,16 @@ const createTransactionAndSubtractBalance2 = asyncHandler(async (req, res) => {
     throw new Error("No target users found");
   }
 
-  // user.balance1TargetUser = targetUserOne;
-  // user.balance2TargetUser = targetUserTwo;
-  // user.save();
+  user.balance1TargetUser = targetUserOne;
+  user.balance2TargetUser = targetUserTwo;
+  user.save();
 
   if (
     user.balance1TargetUser === targetUserOne &&
     user.balance2TargetUser === targetUserTwo
   ) {
     if (targetUserInDb.balance1TargetUser === paramUsername) {
-      console.log(targetUserInDb.balance1TargetUser);
+      // console.log(targetUserInDb.balance1TargetUser);
       const updatedTargetUser1 = await User.findByIdAndUpdate(
         targetUserInDb._id,
         {
@@ -319,7 +315,7 @@ const createTransactionAndSubtractBalance2 = asyncHandler(async (req, res) => {
         throw new Error("Invalid transaction data");
       }
     } else if (targetUserInDb.balance2TargetUser === paramUsername) {
-      console.log(targetUserInDb.balance2TargetUser);
+      // console.log(targetUserInDb.balance2TargetUser);
       const updatedTargetUser2 = await User.findByIdAndUpdate(
         targetUserInDb._id,
         {
@@ -352,15 +348,49 @@ const createTransactionAndSubtractBalance2 = asyncHandler(async (req, res) => {
       throw new Error("Invalid transaction data");
     }
     return res.status(201).json(updatedUser);
-  } 
+  }
 });
 
+const saveAndCreateTransaction = asyncHandler(async (req, res) => {
+  const { sender, receiver, amount, reason } = req.body;
 
+  if (!sender || !receiver || !amount) {
+    res.status(400);
+    throw new Error("Please provide all required fields");
+  }
 
+  const newTransaction = await Transaction.create({
+    sender,
+    receiver,
+    amount,
+    reason,
+  });
+
+  if (!newTransaction) {
+    res.status(400);
+    throw new Error("creation of transaction data was unsuccessful");
+  }
+
+  const count = await Transaction.countDocuments();
+
+  // If the count exceeds 10, delete the oldest documents
+
+  if (count > 10) {
+    const oldestTransactions = await Transaction.find()
+      .sort({ transactionDate: 1 })
+      .limit(count - 10);
+    const oldestIds = oldestTransactions.map((transaction) => transaction._id);
+    await Transaction.deleteMany({ _id: { $in: oldestIds } });
+  }
+
+  return res.status(201);
+});
 
 export {
+  getTransactions,
   createTransactionAndAddBalance1,
   createTransactionAndSubtractBalance1,
   createTransactionAndAddBalance2,
   createTransactionAndSubtractBalance2,
+  saveAndCreateTransaction,
 };
