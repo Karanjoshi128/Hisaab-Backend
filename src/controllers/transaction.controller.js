@@ -375,10 +375,10 @@ const saveAndCreateTransaction = asyncHandler(async (req, res) => {
 
   // If the count exceeds 10, delete the oldest documents
 
-  if (count > 10) {
+  if (count > 50) {
     const oldestTransactions = await Transaction.find()
       .sort({ transactionDate: 1 })
-      .limit(count - 10);
+      .limit(count - 50);
     const oldestIds = oldestTransactions.map((transaction) => transaction._id);
     await Transaction.deleteMany({ _id: { $in: oldestIds } });
   }
