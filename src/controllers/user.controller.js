@@ -40,27 +40,9 @@ const registerUser = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error("Invalid user data");
   }
-
+  
   const user = await User.findById(newUser._id).select("-password");
   return res.status(201).json(user);
-});
-
-const getUsers = asyncHandler(async (req, res) => {
-  const paramValue = req.query.paramName;
-  const users = await User.find({ username: paramValue }).select("-password");
-  if (!users) {
-    res.status(400);
-    throw new Error("No users found");
-  }
-  const otherUsersData = await User.find({
-    username: { $ne: paramValue },
-  }).select("-password");
-  if (!otherUsersData) {
-    res.status(400);
-    throw new Error("No users found");
-  }
-
-  return res.status(200).json({ users, otherUsersData });
 });
 
 const logInUser = asyncHandler(async (req, res) => {
@@ -87,10 +69,43 @@ const logInUser = asyncHandler(async (req, res) => {
   }
   const loggedInUser = await User.findById(user._id).select("-password");
 
+  const userNameForCookie = loggedInUser.username;
+  // console.log(userNameForCookie);
+  const oneYearFromNow = new Date();
+  oneYearFromNow.setFullYear(oneYearFromNow.getFullYear() + 1);
+  res.cookie('username', userNameForCookie, { expires: oneYearFromNow });
+  // console.log('Cookie set:', res.get('Set-Cookie'));
+
   return res.status(200).json(loggedInUser);
 });
 
 
+const getUsers = asyncHandler(async (req, res) => {
+  // const paramValue = req.cookies.username;
+  // console.log("hello" + paramValue);
+  const paramValue = req.query.paramName;
+  const users = await User.find({ username: paramValue }).select("-password");
+  if (!users) {
+    res.status(400);
+    throw new Error("No users found");
+  }
+  const otherUsersData = await User.find({
+    username: { $ne: paramValue },
+  }).select("-password");
+  if (!otherUsersData) {
+    res.status(400);
+    throw new Error("No users found");
+  }
+
+  return res.status(200).json({ users, otherUsersData });
+});
 
 
-export { registerUser, logInUser, getUsers};
+const logOutUser = asyncHandler(async (req, res) => {
+  res.clearCookie('username');
+  // console.log('Cookie cleared');
+  return res.status(200).json({ message: "Logged out successfully" });
+});
+
+
+export { registerUser, logInUser, getUsers , logOutUser};

@@ -5,7 +5,7 @@ export const dbConnect = async () => {
     try {
         const DB_NAME = "Hisaab"
         const connectionInstance = await mongoose.connect(
-            `${process.env.MONGODB_URI}/${DB_NAME}`
+            `${process.env.MONGODB_URII}/${DB_NAME}`
         );
         console.log(
             "Connection to the database was established successfully",
