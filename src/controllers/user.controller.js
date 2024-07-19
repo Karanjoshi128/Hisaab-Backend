@@ -73,7 +73,7 @@ const logInUser = asyncHandler(async (req, res) => {
   // console.log(userNameForCookie);
   const oneYearFromNow = new Date();
   oneYearFromNow.setFullYear(oneYearFromNow.getFullYear() + 1);
-  res.cookie('username', userNameForCookie, { expires: oneYearFromNow , httpOnly: false , secure: true});
+  res.cookie('username', userNameForCookie, { expires: oneYearFromNow , httpOnly: false , secure: true , sameSite: 'None' });
   // console.log('Cookie set:', res.get('Set-Cookie')); // Log the cookie
 
   // res.cookie('username', userNameForCookie, {
