@@ -73,9 +73,18 @@ const logInUser = asyncHandler(async (req, res) => {
   // console.log(userNameForCookie);
   const oneYearFromNow = new Date();
   oneYearFromNow.setFullYear(oneYearFromNow.getFullYear() + 1);
-  res.cookie('username', userNameForCookie, { expires: oneYearFromNow });
+  // res.cookie('username', userNameForCookie, { expires: oneYearFromNow ,httpOnly: false});
   // console.log('Cookie set:', res.get('Set-Cookie'));
 
+  res.cookie('username', userNameForCookie, {
+    expires: oneYearFromNow,
+    httpOnly: false, // Secure the cookie with httpOnly attribute
+    domain: '.hisaab-frontend.vercel.app', // Domain should match the frontend domain
+    path: '/',
+    sameSite: 'None', // For cross-origin requests
+    secure: true // Set to true if using HTTPS
+  });
+  
   return res.status(200).json(loggedInUser);
 });
 
