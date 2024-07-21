@@ -102,7 +102,7 @@ const getUsers = asyncHandler(async (req, res) => {
   const paramValue1 = req.query.paramName1;
   const paramValue2 = req.query.paramName2;
   const users = await User.find({
-    username: paramValue1 ? paramValue1 : paramValue2,
+    username: paramValue2,
   }).select("-password");
   if (!users) {
     res.status(400);
