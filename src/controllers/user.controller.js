@@ -106,6 +106,8 @@ const getUsers = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error("No users found");
   }
+  const paramValue = users.username;
+  console.log(paramValue);
   const otherUsersData = await User.find({
     username: { $ne: paramValue },
   }).select("-password");
