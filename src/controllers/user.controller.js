@@ -40,7 +40,7 @@ const registerUser = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error("Invalid user data");
   }
-  
+
   const user = await User.findById(newUser._id).select("-password");
   return res.status(201).json(user);
 });
@@ -73,7 +73,15 @@ const logInUser = asyncHandler(async (req, res) => {
   // console.log(userNameForCookie);
   const oneYearFromNow = new Date();
   oneYearFromNow.setFullYear(oneYearFromNow.getFullYear() + 1);
-  res.cookie('username', userNameForCookie, { expires: oneYearFromNow , httpOnly: false ,path: "/", secure: true , sameSite: 'None' });
+
+  res.cookie("username", userNameForCookie, {
+    expires: oneYearFromNow,
+    httpOnly: true,
+    path: "/",
+    secure: true,
+    sameSite: "None",
+  });
+
   // console.log('Cookie set:', res.get('Set-Cookie')); // Log the cookie
 
   // res.cookie('username', userNameForCookie, {
@@ -88,12 +96,12 @@ const logInUser = asyncHandler(async (req, res) => {
   return res.status(200).json(loggedInUser);
 });
 
-
 const getUsers = asyncHandler(async (req, res) => {
   // const paramValue = req.cookies.username;
   // console.log("hello" + paramValue);
-  const paramValue = req.query.paramName;
-  const users = await User.find({ username: paramValue }).select("-password");
+  const paramValue1 = req.query.paramName1;
+  const paramValue2 = req.query.paramName2;
+  const users = await User.find({ username: paramValue1?paramValue1:paramValue2 }).select("-password");
   if (!users) {
     res.status(400);
     throw new Error("No users found");
@@ -109,12 +117,10 @@ const getUsers = asyncHandler(async (req, res) => {
   return res.status(200).json({ users, otherUsersData });
 });
 
-
 const logOutUser = asyncHandler(async (req, res) => {
-  res.clearCookie('username');
+  res.clearCookie("username");
   // console.log('Cookie cleared');
   return res.status(200).json({ message: "Logged out successfully" });
 });
 
-
-export { registerUser, logInUser, getUsers , logOutUser};
+export { registerUser, logInUser, getUsers, logOutUser };
