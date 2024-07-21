@@ -125,8 +125,8 @@ const getUsers = asyncHandler(async (req, res) => {
 const logOutUser = asyncHandler(async (req, res) => {
   if (req.cookies.username) {
     res.clearCookie("username");
+    return res.status(200).json({ message: "Logged out successfully" });
   }
-  return res.status(200).json({ message: "Logged out successfully" });
 });
 
 export { registerUser, logInUser, getUsers, logOutUser };
