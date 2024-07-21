@@ -8,7 +8,7 @@
 
 const checkUsernameCookie = (req, res, next) => {
   const username = req.cookies.username;
-  console.log(username + "Hello From Here");
+  console.log(username + " Hello From Here");
   if (!username) {
     return res.status(401).json({ message: "Unauthorized, please log in" });
   }

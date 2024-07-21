@@ -101,7 +101,9 @@ const getUsers = asyncHandler(async (req, res) => {
   // console.log("hello" + paramValue);
   const paramValue1 = req.query.paramName1;
   const paramValue2 = req.query.paramName2;
-  const users = await User.find({ username: paramValue1?paramValue1:paramValue2 }).select("-password");
+  const users = await User.find({
+    username: paramValue1 ? paramValue1 : paramValue2,
+  }).select("-password");
   if (!users) {
     res.status(400);
     throw new Error("No users found");
@@ -120,7 +122,9 @@ const getUsers = asyncHandler(async (req, res) => {
 });
 
 const logOutUser = asyncHandler(async (req, res) => {
-  res.clearCookie("username");
+  if (res.cookies.username) {
+    res.clearCookie("username");
+  }
   // console.log('Cookie cleared');
   return res.status(200).json({ message: "Logged out successfully" });
 });
