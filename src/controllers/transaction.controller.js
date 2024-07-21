@@ -4,7 +4,6 @@ import { User } from "../models/User.model.js";
 import asyncHandler from "express-async-handler";
 
 const getTransactions = asyncHandler(async (req, res) => {
-  console.log("hi it's me , i am the problem it's me");
   const transactions = await Transaction.find({}).sort({ createdAt: -1 });
   if (transactions.length === 0) {
     res.status(400);
