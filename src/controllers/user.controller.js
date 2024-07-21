@@ -99,17 +99,18 @@ const logInUser = asyncHandler(async (req, res) => {
 const getUsers = asyncHandler(async (req, res) => {
   // const paramValue = req.cookies.username;
   // console.log("hello" + paramValue);
-  const paramValue1 = req.query.paramName1;
-  const paramValue2 = req.query.paramName2;
+
+  const paramValue = req.cookies.username;
+
   const users = await User.find({
-    username: paramValue2,
+    username: paramValue,
   }).select("-password");
   if (!users) {
     res.status(400);
     throw new Error("No users found");
   }
-  const paramValue = users.username;
-  console.log(paramValue);
+  // const paramValue = users.username;
+  // console.log(paramValue);
   const otherUsersData = await User.find({
     username: { $ne: paramValue },
   }).select("-password");
