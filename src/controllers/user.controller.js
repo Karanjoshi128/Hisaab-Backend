@@ -122,10 +122,9 @@ const getUsers = asyncHandler(async (req, res) => {
 });
 
 const logOutUser = asyncHandler(async (req, res) => {
-  if (res.cookies.username) {
+  if (req.cookies.username) {
     res.clearCookie("username");
   }
-  // console.log('Cookie cleared');
   return res.status(200).json({ message: "Logged out successfully" });
 });
 
