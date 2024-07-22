@@ -352,7 +352,8 @@ const createTransactionAndSubtractBalance2 = asyncHandler(async (req, res) => {
 });
 
 const saveAndCreateTransaction = asyncHandler(async (req, res) => {
-  const { sender, receiver, amount, reason } = req.body;
+  const { receiver, amount, reason } = req.body;
+  const sender = req.cookies.username;
 
   if (!sender || !receiver || !amount) {
     res.status(400);
