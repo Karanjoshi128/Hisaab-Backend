@@ -14,7 +14,7 @@ const getTransactions = asyncHandler(async (req, res) => {
 
 const createTransactionAndAddBalance1 = asyncHandler(async (req, res) => {
   const paramAmount = req.query.paramAmount;
-  const paramUsername = req.query.paramUsername;
+  const paramUsername = req.cookies.username;
   const targetUser = req.query.targetUser;
   const targetUserOne = req.query.targetUserOne;
   const targetUserTwo = req.query.targetUserTwo;
@@ -101,7 +101,7 @@ const createTransactionAndAddBalance1 = asyncHandler(async (req, res) => {
 
 const createTransactionAndAddBalance2 = asyncHandler(async (req, res) => {
   const paramAmount = req.query.paramAmount;
-  const paramUsername = req.query.paramUsername;
+  const paramUsername = req.cookies.username;
   const targetUser = req.query.targetUser;
   const targetUserOne = req.query.targetUserOne;
   const targetUserTwo = req.query.targetUserTwo;
@@ -185,7 +185,7 @@ const createTransactionAndAddBalance2 = asyncHandler(async (req, res) => {
 
 const createTransactionAndSubtractBalance1 = asyncHandler(async (req, res) => {
   const paramAmount = req.query.paramAmount;
-  const paramUsername = req.query.paramUsername;
+  const paramUsername = req.cookies.username;
   const targetUser = req.query.targetUser;
   const targetUserOne = req.query.targetUserOne;
   const targetUserTwo = req.query.targetUserTwo;
@@ -269,7 +269,7 @@ const createTransactionAndSubtractBalance1 = asyncHandler(async (req, res) => {
 
 const createTransactionAndSubtractBalance2 = asyncHandler(async (req, res) => {
   const paramAmount = req.query.paramAmount;
-  const paramUsername = req.query.paramUsername;
+  const paramUsername = req.cookies.username;
   const targetUser = req.query.targetUser;
   const targetUserOne = req.query.targetUserOne;
   const targetUserTwo = req.query.targetUserTwo;
